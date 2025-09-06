@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    open-in-view: false
+    properties.hibernate:
+      show_sql: true
+      format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/FakeStore
+    driver-class-name: org.postgresql.Driver
+    password: postgres
+    username: postgres

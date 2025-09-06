@@ -1,0 +1,7 @@
+package com.gman97.fakestoreapi.repository;
+
+import com.gman97.fakestoreapi.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, String> {
+}
