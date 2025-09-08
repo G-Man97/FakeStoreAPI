@@ -1,13 +1,12 @@
-package com.gman97.fakestoreapi.http.controller;
+package com.gman97.fakestoreapi.http.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gman97.fakestoreapi.dto.ImportProductDto;
+import com.gman97.fakestoreapi.dto.ProductDto;
 import com.gman97.fakestoreapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,26 +15,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-@Controller
-@RequestMapping("/import")
+@RestController
+@RequestMapping("/api/v1/import")
 @RequiredArgsConstructor
 public class ImportController {
 
     private final ProductService productService;
 
-    @GetMapping
-    public String importData() {
-
-        var productDtos = getImportData();
-        productDtos = productService.saveImportedProducts(productDtos);
-
-        System.out.println(productDtos);
-
-
-        return "products";
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void importData() {
+        productService.saveImportedProducts(getImportData());
     }
 
-    private List<ImportProductDto> getImportData() {
+    private List<ProductDto> getImportData() {
         try {
             StringBuilder json = new StringBuilder();
             URL url = new URL("https://fakestoreapi.com/products");

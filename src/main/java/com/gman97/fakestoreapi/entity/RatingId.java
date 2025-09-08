@@ -19,9 +19,7 @@ public class RatingId implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("rate")
     private Double rate;
 
-    @JsonProperty("count")
     private Integer count;
 }

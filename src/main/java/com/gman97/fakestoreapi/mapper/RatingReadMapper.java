@@ -11,7 +11,9 @@ public class RatingReadMapper implements Mapper<RatingReadDto, Rating> {
     @Override
     public Rating map(RatingReadDto obj) {
         return new Rating(
-                new RatingId(obj.getRate(), obj.getCount()
+                new RatingId(
+                        obj.getRate(),
+                        obj.getCount()
                 ));
     }
 

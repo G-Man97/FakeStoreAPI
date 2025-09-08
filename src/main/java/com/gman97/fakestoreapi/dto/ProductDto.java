@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @Setter
 @Getter
-public class ImportProductDto {
+public class ProductDto {
 
     private Integer id;
 

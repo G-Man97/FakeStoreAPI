@@ -1,7 +1,5 @@
 package com.gman97.fakestoreapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +12,11 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Builder
+@NamedEntityGraph(name = "WithCategoryAndRating",
+        attributeNodes = {
+                @NamedAttributeNode("category"),
+                @NamedAttributeNode("rating")
+        })
 public class Product {
 
     @Id
@@ -26,22 +29,16 @@ public class Product {
 
     private Double price;
 
-    @ManyToOne(/*cascade = CascadeType.ALL*/)
+    @ManyToOne
     @JoinColumn(name = "category_id")
-//    @JsonProperty("category")
     private Category category;
 
     private String image;
 
-    @ManyToOne(/*cascade = CascadeType.ALL*/)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "rate", referencedColumnName = "rate"),
             @JoinColumn(name = "count", referencedColumnName = "count")
     })
     private Rating rating;
-
-//    @JsonSetter("category")
-//    public void setCategoryEntity(@JsonProperty("category") String categoryName) {
-//        this.category = new Category(categoryName);
-//    }
 }
