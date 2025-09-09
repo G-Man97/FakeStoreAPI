@@ -6,8 +6,11 @@ import com.gman97.fakestoreapi.dto.ProductDto;
 import com.gman97.fakestoreapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +27,7 @@ public class ImportController {
     private final ProductService productService;
 
     @PostMapping
-    @Scheduled(fixedRateString = "PT30M", initialDelayString = "PT30M")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void importData() {
         productService.saveImportedProducts(getImportData());
