@@ -1,6 +1,5 @@
 package com.gman97.fakestoreapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Embeddable;
 import lombok.*;
 
@@ -8,12 +7,9 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Embeddable
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class RatingId implements Serializable {
 
     @Serial

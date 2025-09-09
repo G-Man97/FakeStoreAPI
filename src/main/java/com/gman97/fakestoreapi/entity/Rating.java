@@ -6,12 +6,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "ratings")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class Rating {
 
     @EmbeddedId

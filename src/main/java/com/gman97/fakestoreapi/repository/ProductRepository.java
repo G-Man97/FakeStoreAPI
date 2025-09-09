@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Integer>, FilterPaginationProductWithFetchRepository {
+public interface ProductRepository extends JpaRepository<Product, Integer>, ProductImportRepository,
+                                                                            FilterPaginationProductWithFetchRepository {
 
     @Query("select p from Product p " +
             "where p.id in (:ids)")

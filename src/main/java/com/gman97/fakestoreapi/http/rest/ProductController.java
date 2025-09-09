@@ -2,6 +2,7 @@ package com.gman97.fakestoreapi.http.rest;
 
 import com.gman97.fakestoreapi.dto.PageResponse;
 import com.gman97.fakestoreapi.dto.ProductDto;
+import com.gman97.fakestoreapi.dto.ProductFilter;
 import com.gman97.fakestoreapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,11 +20,10 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public PageResponse<ProductDto> findAll(@RequestParam(required = false) Double minPrice,
-                                            @RequestParam(required = false) Double maxPrice,
+    public PageResponse<ProductDto> findAll(ProductFilter filter,
                                             @RequestParam(required = false, defaultValue = "0") Integer page,
                                             @RequestParam(required = false, defaultValue = "5") Integer size) {
-        Page<ProductDto> pageForResponse = productService.findAll(minPrice, maxPrice, page, size);
+        Page<ProductDto> pageForResponse = productService.findAllByFilter(filter, page, size);
         return PageResponse.of(pageForResponse);
     }
 
@@ -34,10 +34,10 @@ public class ProductController {
     }
 
     @GetMapping("/by-category/{categoryName}")
-    public PageResponse<ProductDto> findAllByCategoryName(@PathVariable String categoryName,
+    public PageResponse<ProductDto> findAllByCategoryName(ProductFilter filter,
                                                           @RequestParam(required = false, defaultValue = "0") Integer page,
                                                           @RequestParam(required = false, defaultValue = "5") Integer size) {
-        Page<ProductDto> pageForResponse = productService.findAllByCategoryName(categoryName, page, size);
+        Page<ProductDto> pageForResponse = productService.findAllByFilter(filter, page, size);
         return PageResponse.of(pageForResponse);
     }
 
@@ -55,10 +55,8 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (productService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        return productService.delete(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 }

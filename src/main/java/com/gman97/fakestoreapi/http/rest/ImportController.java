@@ -6,6 +6,7 @@ import com.gman97.fakestoreapi.dto.ProductDto;
 import com.gman97.fakestoreapi.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -23,6 +24,7 @@ public class ImportController {
     private final ProductService productService;
 
     @PostMapping
+    @Scheduled(fixedRateString = "PT30M", initialDelayString = "PT30M")
     @ResponseStatus(HttpStatus.CREATED)
     public void importData() {
         productService.saveImportedProducts(getImportData());

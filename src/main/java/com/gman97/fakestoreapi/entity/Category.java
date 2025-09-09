@@ -7,12 +7,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "categories")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
 public class Category {
 
     @Id

@@ -17,7 +17,7 @@ CREATE TABLE ratings
 --changeset gman97:3
 CREATE TABLE products
 (
-    id SERIAL PRIMARY KEY ,
+    id INTEGER PRIMARY KEY ,
     title VARCHAR(128) ,
     price NUMERIC(6, 2),
     description VARCHAR,
@@ -26,4 +26,7 @@ CREATE TABLE products
     rate NUMERIC(2, 1),
     count INTEGER,
     FOREIGN KEY (rate, count) REFERENCES ratings (rate, count)
-)
+);
+
+--changeset gman97:4
+CREATE SEQUENCE products_id_seq MINVALUE 0 OWNED BY products.id;

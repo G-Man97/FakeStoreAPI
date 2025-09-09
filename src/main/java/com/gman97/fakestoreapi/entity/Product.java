@@ -5,12 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "products")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Builder
 @NamedEntityGraph(name = "WithCategoryAndRating",
         attributeNodes = {
@@ -20,7 +17,8 @@ import lombok.*;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "product_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "product_id_seq", sequenceName = "products_id_seq", initialValue = 0, allocationSize = 1)
     private Integer id;
 
     private String title;
