@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gman97.fakestoreapi.dto.ProductDto;
 import com.gman97.fakestoreapi.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +29,11 @@ public class ImportController {
 
     private final ProductService productService;
 
+    @Operation(summary = "Импортировать товары (только для пользователя с ролью администратора)",
+            description = "В ответе возвращается пустое тело запроса")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Товары успешно импортированы")
+    })
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)

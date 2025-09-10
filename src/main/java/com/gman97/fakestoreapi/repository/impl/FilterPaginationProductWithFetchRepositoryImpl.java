@@ -1,6 +1,7 @@
-package com.gman97.fakestoreapi.repository;
+package com.gman97.fakestoreapi.repository.impl;
 
 import com.gman97.fakestoreapi.entity.Product;
+import com.gman97.fakestoreapi.repository.FilterPaginationProductWithFetchRepository;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.PathBuilderFactory;
 import com.querydsl.jpa.impl.JPAQuery;

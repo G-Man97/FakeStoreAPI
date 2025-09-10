@@ -1,6 +1,7 @@
-package com.gman97.fakestoreapi.repository;
+package com.gman97.fakestoreapi.repository.impl;
 
 import com.gman97.fakestoreapi.entity.Product;
+import com.gman97.fakestoreapi.repository.ProductImportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 

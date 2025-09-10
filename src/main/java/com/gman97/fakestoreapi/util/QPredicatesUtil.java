@@ -12,15 +12,15 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class QPredicates {
+public class QPredicatesUtil {
 
     private final List<Predicate> predicates = new ArrayList<>();
 
-    public static QPredicates builder() {
-        return new QPredicates();
+    public static QPredicatesUtil builder() {
+        return new QPredicatesUtil();
     }
 
-    public <T> QPredicates add(T object, Function<T, Predicate> function) {
+    public <T> QPredicatesUtil add(T object, Function<T, Predicate> function) {
         if (object != null) {
             predicates.add(function.apply(object));
         }
