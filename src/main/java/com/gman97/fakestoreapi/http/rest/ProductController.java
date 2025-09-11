@@ -65,11 +65,10 @@ public class ProductController {
     })
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody @Valid ProductDto productDto, BindingResult bindingResult) {
         return bindingResult.hasErrors()
                 ? ResponseEntity.badRequest().body(getMessages(bindingResult))
-                : ResponseEntity.ok().body(productService.save(productDto));
+                : ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productDto));
     }
 
     @Operation(summary = "Обновить существующий товар (только для пользователя с ролью администратора)",
