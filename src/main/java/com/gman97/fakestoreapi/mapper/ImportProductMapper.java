@@ -1,27 +1,27 @@
 package com.gman97.fakestoreapi.mapper;
 
 import com.gman97.fakestoreapi.dto.ProductDto;
+import com.gman97.fakestoreapi.entity.Category;
 import com.gman97.fakestoreapi.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ProductReadMapper implements Mapper<Product, ProductDto>{
+public class ImportProductMapper implements Mapper<ProductDto, Product> {
 
-   private final RatingReadMapper ratingReadMapper;
+    private final RatingReadMapper ratingReadMapper;
 
     @Override
-    public ProductDto map(Product obj) {
-        return ProductDto.builder()
-                .id(obj.getId())
-                .externalId(obj.getExternalId())
+    public Product map(ProductDto obj) {
+        return Product.builder()
+                .externalId(obj.getId())
                 .title(obj.getTitle())
                 .price(obj.getPrice())
                 .description(obj.getDescription())
-                .category(obj.getCategory().getName())
+                .category(new Category(null, obj.getCategory()))
                 .image(obj.getImage())
-                .rating(ratingReadMapper.mapToDto(obj.getRating()))
+                .rating(ratingReadMapper.map(obj.getRating()))
                 .build();
     }
 }

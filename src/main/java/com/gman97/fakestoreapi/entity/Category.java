@@ -1,17 +1,20 @@
 package com.gman97.fakestoreapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "categories")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"name"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String name;
 }

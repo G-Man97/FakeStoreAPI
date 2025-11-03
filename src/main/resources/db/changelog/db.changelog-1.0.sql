@@ -3,30 +3,28 @@
 --changeset gman97:1
 CREATE TABLE categories
 (
-    name VARCHAR(64) PRIMARY KEY
+    id   SERIAL      PRIMARY KEY ,
+    name VARCHAR(64) UNIQUE
 );
 
 --changeset gman97:2
 CREATE TABLE ratings
 (
-    rate NUMERIC(2, 1),
-    count INTEGER,
-    PRIMARY KEY (rate, count)
+    id    BIGSERIAL     PRIMARY KEY ,
+    rate  NUMERIC(2, 1) ,
+    count INTEGER ,
+    UNIQUE (rate, count)
 );
 
 --changeset gman97:3
 CREATE TABLE products
 (
-    id INTEGER PRIMARY KEY ,
-    title VARCHAR(128) ,
-    price NUMERIC(6, 2),
-    description VARCHAR,
-    category_id VARCHAR(64) REFERENCES categories (name),
-    image VARCHAR,
-    rate NUMERIC(2, 1),
-    count INTEGER,
-    FOREIGN KEY (rate, count) REFERENCES ratings (rate, count)
+    id          SERIAL      PRIMARY KEY ,
+    external_id INTEGER     UNIQUE ,
+    title       VARCHAR(128) ,
+    price       NUMERIC(6, 2) ,
+    description VARCHAR ,
+    category_id INTEGER     REFERENCES categories (id) ,
+    image       VARCHAR ,
+    rating_id   BIGINT      REFERENCES ratings (id)
 );
-
---changeset gman97:4
-CREATE SEQUENCE products_id_seq MINVALUE 0 OWNED BY products.id;

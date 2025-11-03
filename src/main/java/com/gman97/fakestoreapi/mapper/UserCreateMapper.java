@@ -17,8 +17,8 @@ public class UserCreateMapper implements Mapper<UserCreateDto, User> {
     public User map(UserCreateDto object) {
         return new User(
                 null,
-                object.getUsername(),
-                passwordEncoder.encode(object.getRowPassword()),
+                object.username(),
+                passwordEncoder.encode(object.rowPassword()),
                 Role.USER
         );
     }

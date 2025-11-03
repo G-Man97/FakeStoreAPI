@@ -15,6 +15,8 @@ public class ProductDto {
 
     private Integer id;
 
+    private Integer externalId;
+
     @NotBlank(message = "Поле title" + NOT_BLANK)
     @Size(min = 2, max = 128, message = "Поле title должно содержать от 2 до 128 символов")
     private String title;

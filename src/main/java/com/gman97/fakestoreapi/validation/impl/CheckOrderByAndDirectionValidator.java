@@ -2,7 +2,7 @@ package com.gman97.fakestoreapi.validation.impl;
 
 import com.gman97.fakestoreapi.dto.ProductFilter;
 import com.gman97.fakestoreapi.entity.Product;
-import com.gman97.fakestoreapi.entity.RatingId;
+import com.gman97.fakestoreapi.entity.RateCount;
 import com.gman97.fakestoreapi.validation.CheckOrderByAndDirection;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -19,12 +19,12 @@ public class CheckOrderByAndDirectionValidator implements ConstraintValidator<Ch
     private static final List<String> PRODUCT_FIELDS;
 
     static {
-        // Составляем список полей сущности Product + поля RatingId (чтобы по ним тоже можно было сортировать)
+        // Составляем список полей сущности Product + поля RateCount (чтобы по ним тоже можно было сортировать)
         PRODUCT_FIELDS = new ArrayList<>(Arrays.stream(Product.class.getDeclaredFields())
                 .map(Field::getName)
-                .filter(e -> !"rating".equals(e) && !"serialVersionUID".equals(e))
+                .filter(e -> !"rating".equals(e))
                 .toList());
-        PRODUCT_FIELDS.addAll(Arrays.stream(RatingId.class.getDeclaredFields()).map(Field::getName).toList());
+        PRODUCT_FIELDS.addAll(Arrays.stream(RateCount.class.getDeclaredFields()).map(Field::getName).toList());
     }
 
     @Override
@@ -65,6 +65,8 @@ public class CheckOrderByAndDirectionValidator implements ConstraintValidator<Ch
                     direction.remove(i--); // Также удаляем направление сортировки для этого поля
                 }
             }
+            value.setOrderBy(orderBy);
+            value.setDirection(direction);
         }
         return true;
     }

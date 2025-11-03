@@ -7,11 +7,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 
 import java.util.List;
+
+import static com.gman97.fakestoreapi.util.ValidationStringsUtil.getMessages;
 
 @Controller
 @RequestMapping("/registration")
@@ -32,10 +36,8 @@ public class RegistrationController {
                            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            var errors = bindingResult.getAllErrors().stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
             redirectAttributes.addFlashAttribute("user", userCreateDto);
-            redirectAttributes.addFlashAttribute("errors", errors);
+            redirectAttributes.addFlashAttribute("errors", getMessages(bindingResult));
             return "redirect:/registration";
         }
 

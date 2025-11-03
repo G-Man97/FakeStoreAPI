@@ -6,12 +6,17 @@ import lombok.*;
 
 @Entity
 @Table(name = "ratings")
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(of = {"rating"})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Rating {
 
-    @EmbeddedId
-    private RatingId rating;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Embedded
+    private RateCount rating;
 }

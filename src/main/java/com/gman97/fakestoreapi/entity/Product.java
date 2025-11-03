@@ -5,7 +5,9 @@ import lombok.*;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,9 +19,11 @@ import lombok.*;
 public class Product {
 
     @Id
-    @GeneratedValue(generator = "product_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "product_id_seq", sequenceName = "products_id_seq", initialValue = 0, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "external_id")
+    private Integer externalId;
 
     private String title;
 
@@ -27,16 +31,13 @@ public class Product {
 
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
     private String image;
 
-    @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "rate", referencedColumnName = "rate"),
-            @JoinColumn(name = "count", referencedColumnName = "count")
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rating_id")
     private Rating rating;
 }

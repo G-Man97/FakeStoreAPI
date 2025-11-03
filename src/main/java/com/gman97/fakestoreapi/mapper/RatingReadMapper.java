@@ -1,8 +1,8 @@
 package com.gman97.fakestoreapi.mapper;
 
 import com.gman97.fakestoreapi.dto.RatingReadDto;
+import com.gman97.fakestoreapi.entity.RateCount;
 import com.gman97.fakestoreapi.entity.Rating;
-import com.gman97.fakestoreapi.entity.RatingId;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,8 +10,8 @@ public class RatingReadMapper implements Mapper<RatingReadDto, Rating> {
 
     @Override
     public Rating map(RatingReadDto obj) {
-        return new Rating(
-                new RatingId(
+        return new Rating(null,
+                new RateCount(
                         obj.getRate(),
                         obj.getCount()
                 ));
